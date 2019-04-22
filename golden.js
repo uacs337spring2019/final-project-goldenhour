@@ -2,8 +2,13 @@
 
 (function() {
     window.onload = function() {
-        
+        document.getElementById("loc").onclick = findCoords;
     };
+
+    function findCoords() {
+        let city = document.getElementById("city");
+        let state = document.getElementById("state");
+    }
 
     /** Checks the status of data requests to the web service. It returns an error message if
      *  there is was a problem, specific messages for 410 and 404 errors with a general error
