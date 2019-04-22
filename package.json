@@ -4,18 +4,13 @@
   "description": "A package for golden hour.",
   "main": "golden_service.js",
   "dependencies": {
-    "express": "^4.16.4",
-    "mysql": "^2.17.1",
-    "node": "^11.13.0"
+  "express": "^4.16.4",
+  "mysql": "^2.17.0"
   },
   "devDependencies": {},
   "scripts": {
-    "build": "node golden_service.js",
-    "test": "standard"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/uacs337spring2019/final-project-goldenhour.git"
+    "test": "echo \"Error: no test specified\" && exit
+  1"
   },
   "keywords": ["golden hour", "webapp", "node"],
   "author": "Minh",
