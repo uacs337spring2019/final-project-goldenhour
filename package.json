@@ -13,10 +13,6 @@
     "build": "node golden_service.js",
     "test": "standard"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/uacs337spring2019/final-project-goldenhour.git"
-  },
   "keywords": ["golden hour", "webapp", "node"],
   "author": "Minh",
   "license": "ISC",
