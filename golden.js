@@ -2,13 +2,8 @@
 
 (function() {
     window.onload = function() {
-        document.getElementById("loc").onclick = test;
+        document.getElementById("loc").onclick = findCoords;
     };
-
-    function test() {
-        let offset = new Date().getTimezoneOffset();
-        console.log(offset);
-    }
 
     function findCoords() {
         let cityField = document.getElementById("city");
@@ -26,22 +21,47 @@
                 let json = JSON.parse(responseText);
                 let lat = json[0]["lat"];
                 let lon = json[0]["lon"];
-                console.log(lat + " " + lon);
                 getData(lat, lon);
-                
             });
     }
 
     function getData(lat, lon) {
-        let url = "https://api.sunrise-sunset.org/json?lat=" + lat +
-        "&lng=" + lon;
+        let today = new Date();
+        let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    
+        let url = "https://api.sunrise-sunset.org/json?lat="+lat+"&lng="+lon+"&date="+date+"&formatted=0";
 
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
                 let json = JSON.parse(responseText);
-                console.log(json);
+                let sunset = json["results"]["sunset"];
+                getTime(sunset);
             });
+    }
+
+    function getTime(UTCstr) {
+        let date = new Date(UTCstr);
+        date.toString();
+
+        let hr = parseInt(date.getHours());
+        let min = parseInt(date.getMinutes());
+        let sec = parseInt(date.getSeconds());
+        
+        let meridiem = "AM";
+        if (hr > 12) {
+            meridiem = "PM";
+            hr -= 12;
+        }
+        if (min < 10) {
+            min = '0'+min;
+        }
+        if (sec < 10) {
+            sec = '0'+sec;
+        }
+
+        let time = hr+':'+min+':'+sec+' '+meridiem;
+        console.log(time);
     }
 
     /** Checks the status of data requests to the web service. It returns an error message if
