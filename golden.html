@@ -22,7 +22,7 @@
 				</p>
 			</div>
 			<div id="form">
-				<input type="text" id="city" placeholder="city" />
+				<input type="text" id="city" placeholder="City" />
 
 				<!-- Dropdown pulled from Internet -->
 				<select id="state">
@@ -86,11 +86,31 @@
 			<h2>Photos!</h2>
 
 			<div id="userInfo">
-
+				<input type="text" id="name" placeholder="Name" />
+				<input type="text" id="place" placeholder="Location" />
+				<form method="post" enctype="multipart/form-data" action="/upload">
+					<input type="file" name="file">
+					<input type="submit" value="Submit">
+				</form>
 			</div>
 
 			<div id="pics">
-				
+				<div class="row">
+					<div class="col">
+						<img src="1.jpg">
+						<img src="2.jpg">
+						<img src="3.jpg">
+					</div>
+					<div class="col">
+						<img src="4.jpg">
+						<img src="5.jpg">
+						<img src="6.jpg">
+					</div>
+					<div class="col">
+						<img src="7.jpg">
+						<img src="8.jpg">
+					</div>
+				</div>
 			</div>
 		</div>
     </body>

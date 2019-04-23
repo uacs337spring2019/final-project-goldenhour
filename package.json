@@ -1,19 +1,22 @@
 {
-  "name": "goldenhour",
+  "name": "final-project-goldenhour",
   "version": "1.0.0",
-  "description": "A package for golden hour.",
-  "main": "golden_service.js",
+  "description": "(Example)",
+  "main": "(golden_service.js)",
   "dependencies": {
-  "express": "^4.16.4",
-  "mysql": "^2.17.0"
+    "express": "^4.16.4",
+    "mysql": "^2.17.1",
+    "node": "^11.14.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit
-  1"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["golden hour", "webapp", "node"],
-  "author": "Minh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uacs337spring2019/final-project-goldenhour.git"
+  },
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/uacs337spring2019/final-project-goldenhour/issues"
