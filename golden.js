@@ -36,12 +36,24 @@
             .then(function(responseText) {
                 let json = JSON.parse(responseText);
                 let sunset = json["results"]["sunset"];
-                getTime(sunset);
+                let sunsetDate = new Date(sunset);
+
+                populateInfo(sunsetDate);
             });
     }
 
-    function getTime(UTCstr) {
-        let date = new Date(UTCstr);
+    function populateInfo(sunsetDate) {
+        let sunsetTimeStr = getTime(sunsetDate);
+        let currTimeStr = getTime(new Date());
+
+        console.log(sunsetTimeStr);
+        console.log(currTimeStr);
+
+        // TODO: Matthew, you can put these in the content, I was thinking about using some big 
+        // ass font to fill out the space.
+    }
+
+    function getTime(date) {
         date.toString();
 
         let hr = parseInt(date.getHours());
@@ -61,7 +73,8 @@
         }
 
         let time = hr+':'+min+':'+sec+' '+meridiem;
-        console.log(time);
+
+        return time;
     }
 
     /** Checks the status of data requests to the web service. It returns an error message if
