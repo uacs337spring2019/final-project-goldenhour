@@ -1,11 +1,9 @@
 "use strict";
 
 const express = require('express');
+const crypto = require('crypto');
 const http = require("http");
-const mysql = require('mysql');
 const path = require("path");
-const fs = require("fs");
-
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -17,7 +15,6 @@ console.log("Service Started");
 app.get('/', express.static(path.join(__dirname, "./public")));
 
 const multer = require("multer");
-
 const multerConf = {
     storage : multer.diskStorage({
         destination: function(req, file, next){
@@ -25,7 +22,7 @@ const multerConf = {
         },
         filename: function(req, file, next) {
             const ext = file.mimetype.split('/')[1];
-            next(null,file.fieldname + '-' + Date.now() + '.' + ext);
+            next(null,file.fieldname + '-' + crypto.randomBytes(16).toString("hex") + '.' + ext);
         } 
     }),
     fileFilter: function(req, file, next) {
@@ -40,6 +37,19 @@ const multerConf = {
         }
     }
 };
+
+const mysql = require('mysql');
+var con = mysql.createConnection({
+    host: "us-cdbr-iron-east-02.cleardb.net",
+    database: "heroku_54e3f5c78405e67",
+    user: "b072553315c851",
+    password: "89afe3b2"
+  });
+
+con.connect(function(err) {
+if (err) throw err;
+console.log("Connected to Database!");
+});
 
 app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
     if (req.file) {
