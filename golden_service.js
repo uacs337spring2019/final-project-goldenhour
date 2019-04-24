@@ -23,10 +23,6 @@ const handleError = (err, res) => {
         .end("Oops, something went wrong!");
 };
 
-const upload = multer({
-    dest: "/sunsetpics"
-});
-
 app.get('/', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     let params = req.query;
