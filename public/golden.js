@@ -7,8 +7,23 @@
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
 		//ifmStart();
+		populatePhotos();
     };
 	
+	function populatePhotos() {
+		let url = "http://localhost:3000?mode=pics";
+
+		fetch(url)
+			.then(checkStatus)
+			.then(function(responseText) {
+				let data = JSON.parse(responseText);
+				console.log(data);
+			})
+			.catch(function(err) {
+				console.log(err);
+			});
+
+	}
 
     function findCoords() {
         let cityField = document.getElementById("city");
@@ -120,7 +135,7 @@
 	function changeBackground(time) {
 		let currHour = time.getHours();
 		let main = document.getElementById('main');
-		console.log(currHour);
+		//console.log(currHour);
 		if (currHour >= 6 && currHour < 11) {
 			main.style.backgroundImage = "linear-gradient(#6dd5fa, #9aecdb, white)";
 		}

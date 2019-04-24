@@ -12,6 +12,19 @@ app.use(express.static('public'));
 
 console.log("Service Started");
 
+const mysql = require('mysql');
+var con = mysql.createConnection({
+    host: "us-cdbr-iron-east-02.cleardb.net",
+    database: "heroku_54e3f5c78405e67",
+    user: "b072553315c851",
+    password: "89afe3b2"
+  });
+
+con.connect(function(err) {
+if (err) throw err;
+console.log("Connected to Database!");
+});
+
 app.get('/', express.static(path.join(__dirname, "./public")));
 
 const multer = require("multer");
@@ -38,19 +51,6 @@ const multerConf = {
     }
 };
 
-const mysql = require('mysql');
-var con = mysql.createConnection({
-    host: "us-cdbr-iron-east-02.cleardb.net",
-    database: "heroku_54e3f5c78405e67",
-    user: "b072553315c851",
-    password: "89afe3b2"
-  });
-
-con.connect(function(err) {
-if (err) throw err;
-console.log("Connected to Database!");
-});
-
 app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
     if (req.file) {
         req.body.photo = req.file.filename;
@@ -58,7 +58,15 @@ app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
         // req.body.name
         // req.body.place
         // req.body.photo
-        // we have to store this in the database
+        let name = req.body.name;
+        let place = req.body.place;
+        let photo = req.body.photo;
+        
+        let q = "INSERT INTO pictures VALUES ('"+photo+"', '"+name+"', '"+place+"')";
+        con.query(q, function(err,result) {
+            if(err) throw err;
+            console.log("File successfully saved!");
+        })
         res.send("File successfully saved!");
     } else {
         res.send("Failed to upload image");
@@ -68,14 +76,20 @@ app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
 app.get('/', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     let params = req.query;
-
     var mode = params.mode;
 
     if (mode == undefined) {
         res.status(400);
         res.send("Missing required parameters");
+    } else if (mode === "pics") {
+        let q = "SELECT * from pictures";
+        con.query(q, function(err, result) {
+            if (err) throw err;
+            else {
+                res.send(result);
+            }
+        })
     }
-    
 });
 
 const PORT = process.env.PORT || 3000;
