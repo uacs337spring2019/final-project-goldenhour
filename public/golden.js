@@ -4,8 +4,7 @@
 	let timer;
 	
     window.onload = function() {
-        document.getElementById("loc").onclick = findCoords;
-        
+        document.getElementById("loc").onclick = findCoords;   
     };
 
     function findCoords() {
