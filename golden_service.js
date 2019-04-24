@@ -49,8 +49,10 @@ app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
         // req.body.place
         // req.body.photo
         // we have to store this in the database
+        res.send("File successfully saved!");
+    } else {
+        res.send("Failed to upload image");
     }
-    
 });
 
 app.get('/', function (req, res) {
