@@ -2,10 +2,13 @@
 
 (function() {
 	let timer;
+	let currTime;
 	
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
+		//ifmStart();
     };
+	
 
     function findCoords() {
         let cityField = document.getElementById("city");
@@ -47,16 +50,25 @@
     function populateInfo(sunsetDate) {
         let sunsetTimeStr = getTime(sunsetDate);
         let currTimeStr = getTime(new Date());
+		countdown(sunsetDate);
 		
-		let data = document.getElementById("data");
-		data.innerHTML = "";
+		document.getElementById('sun').innerHTML = "";
 		let city = document.getElementById("city").value;
         let state = document.getElementById("state").value;
-		data.innerHTML += "<h2>Golden Hour for " + city + ", " + state + "</h2>"
-		data.innerHTML += "<p>Current Time: " + currTimeStr + "</p>"
-		data.innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>"
-		countdown(sunsetDate);
+		document.getElementById('sun').innerHTML += "<h2>Golden Hour for " + city + ", " + state + "</h2>"
+		document.getElementById('sun').innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>"
+		printCurrTime();
     }
+	
+	function printCurrTime() {
+		if (currTime) {
+			clearInterval(currTime);
+		}
+		currTime = setInterval(function() {
+			let currTimeStr = getTime(new Date());
+			document.getElementById('curr').innerHTML = "<p>Current Time: " + currTimeStr + "</p>"
+		}, 1000);
+	}
 
     function getTime(date) {
         date.toString();
@@ -89,6 +101,7 @@
 		timer = setInterval(function() {
 			let print = document.getElementById("timer");
 			let curr = new Date();
+			changeBackground(curr);
 			var distance = sunset - curr;
 			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -102,6 +115,24 @@
 				document.getElementById("timer").innerHTML = "IT'S GOLDEN HOUR!";
 			}
 		}, 1000);
+	}
+	
+	function changeBackground(time) {
+		let currHour = time.getHours();
+		let main = document.getElementById('main');
+		console.log(currHour);
+		if (currHour >= 6 && currHour < 11) {
+			main.style.backgroundImage = "linear-gradient(#6dd5fa, #9aecdb, white)";
+		}
+		else if (currHour >= 11 && currHour < 16) {
+			main.style.backgroundImage = "linear-gradient(#fceabb, #f8b500)";
+		}
+		else if (currHour >= 16 && currHour < 19) {
+			main.style.backgroundImage = "linear-gradient(#FF512F, #f09819)";
+		}
+		else {
+			main.style.backgroundImage = "linear-gradient(#C33764, #1d2671)";
+		}
 	}
 
     /** Checks the status of data requests to the web service. It returns an error message if

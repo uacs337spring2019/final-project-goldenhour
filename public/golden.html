@@ -18,9 +18,11 @@
 				<p>
 				By typing in your city (US only), this website will give you the time
 				of your location's "Golden Hour" (time of sunset). Share your great pictures in
-				the comments section below!
+				the comments section below! Keep in mind that all times are based on the time
+				zone that you are currently in.
 				</p>
-				<div id="data"></div>
+				<div id="sun"></div>
+				<div id="curr"></div>
 				<div id="timer"></div>
 			</div>
 			<div id="form">
@@ -97,6 +99,7 @@
 				pictures!
 			</p>
 			<div id="userInfo">
+				<p>File Upload Status:</p>
 				<iframe name="formSending"></iframe>
 				<form method="POST" enctype="multipart/form-data" action="http://localhost:3000/upload" target="formSending">
 					<input type="text" name="name" id="name" placeholder="Name" required/>
