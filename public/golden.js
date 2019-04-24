@@ -1,6 +1,8 @@
 "use strict";
 
 (function() {
+	let timer;
+	
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
         
@@ -49,6 +51,15 @@
 
         console.log(sunsetTimeStr);
         console.log(currTimeStr);
+		
+		let data = document.getElementById("data");
+		data.innerHTML = "";
+		let city = document.getElementById("city").value;
+        let state = document.getElementById("state").value;
+		data.innerHTML += "<h2>Golden Hour for " + city + ", " + state + "</h2>"
+		data.innerHTML += "<p>Current Time: " + currTimeStr + "</p>"
+		data.innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>"
+		countdown(sunsetDate);
 
         // TODO: Matthew, you can put these in the content, I was thinking about using some big 
         // ass font to fill out the space.
@@ -77,6 +88,28 @@
 
         return time;
     }
+	
+	function countdown(sunset) {
+		if (timer) {
+			clearInterval(timer);
+		}
+		timer = setInterval(function() {
+			let print = document.getElementById("timer");
+			let curr = new Date();
+			var distance = sunset - curr;
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+			print.innerHTML = "Time till Golden Hour: " + hours + "h " + minutes + "m " + seconds + "s ";
+
+			// If the count down is finished, write some text 
+			if (distance < 0) {
+				clearInterval(timer);
+				document.getElementById("timer").innerHTML = "IT'S GOLDEN HOUR!";
+			}
+		}, 1000);
+	}
 
     /** Checks the status of data requests to the web service. It returns an error message if
      *  there is was a problem, specific messages for 410 and 404 errors with a general error

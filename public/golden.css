@@ -95,3 +95,12 @@ button {
 h2 {
 	text-align: center;
 }
+
+#data {
+	text-align: center;
+	font-size: 18pt;
+}
+
+#timer {
+	text-align: center;
+}
