@@ -9,6 +9,7 @@ const app = express();
 
 
 app.use(express.static('public'));
+
 console.log("Service Started");
 
 app.get('/', express.static(path.join(__dirname, "./public")));
