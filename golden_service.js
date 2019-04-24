@@ -41,11 +41,14 @@ const multerConf = {
     }
 };
 
-
 app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
     if (req.file) {
-        console.log(req.file);
         req.body.photo = req.file.filename;
+        console.log(req.body);
+        // req.body.name
+        // req.body.place
+        // req.body.photo
+        // we have to store this in the database
     }
     
 });
