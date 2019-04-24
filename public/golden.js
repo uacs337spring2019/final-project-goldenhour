@@ -3,6 +3,7 @@
 (function() {
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
+        
     };
 
     function findCoords() {

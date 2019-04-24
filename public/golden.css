@@ -33,7 +33,9 @@ html, body {
 	border: 1px solid black;
 }
 
-
+iframe {
+	display: none;
+}
 
 #form {
 	text-align: center;
