@@ -4,7 +4,6 @@
     <head>
         <link rel="stylesheet" type="text/css" href="golden.css" />
 				<script type="text/javascript" src="golden.js"></script>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Golden Hour</title>
         <meta charset="utf-8" />
     </head>
@@ -88,6 +87,7 @@
 
 			<div id="userInfo">
 				<iframe name="formSending"></iframe>
+
 				<form method="POST" enctype="multipart/form-data" action="http://localhost:3000/upload" target="formSending">
 					<input type="text" name="name" id="name" placeholder="Name" required/>
 					<input type="text" name="place" id="place" placeholder="Location" required/>
@@ -95,7 +95,6 @@
 					<input type="file" name="photo" id="photo">
 					<input type="submit" value="Submit">
 				</form>
-
 			</div>
 
 			<div id="pics">
