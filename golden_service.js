@@ -1,11 +1,30 @@
 "use strict";
 
 const express = require('express');
+const mysql = require('mysql');
+const path = require("path");
+const fs = require("fs");
+
 const app = express();
-var mysql = require('mysql');
+
 
 app.use(express.static('public'));
 console.log("Service Started");
+
+app.get('/', express.static(path.join(__dirname, "./public")));
+
+const multer = require("multer");
+
+const handleError = (err, res) => {
+    res
+        .status(500)
+        .contentType("text/plain")
+        .end("Oops, something went wrong!");
+};
+
+const upload = multer({
+    dest: "/sunsetpics"
+});
 
 app.get('/', function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -21,4 +40,4 @@ app.get('/', function (req, res) {
 });
 
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 3000);
