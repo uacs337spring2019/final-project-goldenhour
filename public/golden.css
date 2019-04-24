@@ -11,6 +11,7 @@ html, body {
 	height: 60px;
 	margin: auto;
 	text-align: center;
+	padding-top: 25px;
 }
 
 #banner h1 {
@@ -31,6 +32,8 @@ html, body {
 	width: 77%;
 	margin: 3%;
 	border: 1px solid black;
+	padding: 8px;
+	text-align: center;
 }
 
 iframe {
@@ -44,6 +47,7 @@ iframe {
 	margin: 3%;
 	overflow: hidden;
 	border: 1px solid black;
+	padding: 70px 0;
 }
 
 select, input {
@@ -59,6 +63,7 @@ button {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
+	margin: 5px;
 }
 
 #comments {
@@ -104,3 +109,7 @@ h2 {
 #timer {
 	text-align: center;
 }
+
+#photo {
+}
+
