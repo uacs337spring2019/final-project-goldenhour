@@ -13,18 +13,19 @@
         
         let city = cityField.value;
         let state = ddstate.options[ddstate.selectedIndex].value;
+		if (city) {
+			let url = "https://us1.locationiq.com/v1/search.php?key=eb122602cf386b&format=json" +
+			"&state=" + state + "&city=" + city;
 
-        let url = "https://us1.locationiq.com/v1/search.php?key=eb122602cf386b&format=json" +
-        "&state=" + state + "&city=" + city;
-
-        fetch(url)
-            .then(checkStatus)
-            .then(function(responseText) {
-                let json = JSON.parse(responseText);
-                let lat = json[0]["lat"];
-                let lon = json[0]["lon"];
-                getData(lat, lon);
-            });
+			fetch(url)
+				.then(checkStatus)
+				.then(function(responseText) {
+					let json = JSON.parse(responseText);
+					let lat = json[0]["lat"];
+					let lon = json[0]["lon"];
+					getData(lat, lon);
+				});
+		}
     }
 
     function getData(lat, lon) {
@@ -39,7 +40,6 @@
                 let json = JSON.parse(responseText);
                 let sunset = json["results"]["sunset"];
                 let sunsetDate = new Date(sunset);
-
                 populateInfo(sunsetDate);
             });
     }
@@ -47,9 +47,6 @@
     function populateInfo(sunsetDate) {
         let sunsetTimeStr = getTime(sunsetDate);
         let currTimeStr = getTime(new Date());
-
-        console.log(sunsetTimeStr);
-        console.log(currTimeStr);
 		
 		let data = document.getElementById("data");
 		data.innerHTML = "";
@@ -59,9 +56,6 @@
 		data.innerHTML += "<p>Current Time: " + currTimeStr + "</p>"
 		data.innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>"
 		countdown(sunsetDate);
-
-        // TODO: Matthew, you can put these in the content, I was thinking about using some big 
-        // ass font to fill out the space.
     }
 
     function getTime(date) {

@@ -54,7 +54,7 @@ select, input {
 	max-width: 70%;
 }
 
-button {
+#loc {
 	background-color: #1F45FC;
 	border: none;
 	color: white;
@@ -62,8 +62,8 @@ button {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
 	margin: 5px;
+	cursor: pointer;
 }
 
 #comments {
@@ -77,8 +77,8 @@ button {
 	padding-top: 25px;
 }
 
-#userInfo {
-	display: inline-block;	
+#userInfo, #timer {
+	text-align: center;
 }
 
 .row {
@@ -99,19 +99,29 @@ button {
 	width: 400px;
 }
 
-h2 {
-	text-align: center;
-}
-
 #data {
 	text-align: center;
 	font-size: 18pt;
 }
 
-#timer {
-	text-align: center;
+#userInfo hr {
+	width: 20%;
 }
 
 #photo {
+	display: none;
 }
 
+#photo + label {
+	display: inline-block;
+    border: 1px solid black;
+	border-radius: 25px;
+	padding: 10px 20px;
+	margin: 10px;
+	cursor: pointer;
+}
+
+#photo + label:hover,
+#loc:hover {
+    background-color: #FFD700;
+}
