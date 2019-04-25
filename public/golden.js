@@ -20,8 +20,8 @@
 	
 	/** Adds all the photos from the server so the client can see them. **/
 	function populatePhotos() {
-		//let url = "https://the-golden-hour.herokuapp.com?mode=pics";
-		let url = "http://localhost:3000?mode=pics";
+		let url = "https://the-golden-hour.herokuapp.com?mode=pics";
+		//let url = "http://localhost:3000?mode=pics";
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText) {
@@ -42,8 +42,8 @@
 						if (data[j]){
 							let obj = data[j];
 							let pic = document.createElement("img");
-							//pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
-							pic.src = "./pics/" + obj["pic"];
+							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
+							//pic.src = "./pics/" + obj["pic"];
 							pic.addEventListener('click', function() {
 								alert("Name: " + obj["name"] + ", Place: " + obj["place"]);
 							});
