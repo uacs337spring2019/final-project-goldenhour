@@ -11,13 +11,19 @@
     };
 	
 	function populatePhotos() {
-		let url = "http://localhost:3000?mode=pics";
+		let url = "https://the-golden-hour.herokuapp.com?mode=pics";
 
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText) {
 				let data = JSON.parse(responseText);
-				console.log(data);
+				for (let i = 0; i < data.length; i++) {
+					let obj = data[i];
+					let pic = document.createElement("img");
+					pic.src = obj["pic"];
+					console.log(pic.src);
+					document.getElementById("pics").appendChild(pic);
+				}
 			})
 			.catch(function(err) {
 				console.log(err);
