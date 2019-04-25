@@ -13,17 +13,38 @@ app.use(express.static('public'));
 console.log("Service Started");
 
 const mysql = require('mysql');
-var con = mysql.createConnection({
+
+var db_config = {
     host: "us-cdbr-iron-east-02.cleardb.net",
     database: "heroku_54e3f5c78405e67",
     user: "b072553315c851",
     password: "89afe3b2"
-  });
+  };
 
-con.connect(function(err) {
-if (err) throw err;
-console.log("Connected to Database!");
-});
+var connection;
+
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+
+  connection.connect(function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+
+handleDisconnect();
 
 app.get('/', express.static(path.join(__dirname, "./public")));
 
@@ -63,7 +84,7 @@ app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
         let photo = req.body.photo;
         
         let q = "INSERT INTO pictures VALUES ('"+photo+"', '"+name+"', '"+place+"')";
-        con.query(q, function(err,result) {
+        connection.query(q, function(err,result) {
             if(err) throw err;
             console.log("File successfully saved!");
         })
@@ -83,7 +104,7 @@ app.get('/', function (req, res) {
         res.send("Missing required parameters");
     } else if (mode === "pics") {
         let q = "SELECT * from pictures";
-        con.query(q, function(err, result) {
+        connection.query(q, function(err, result) {
             if (err) throw err;
             else {
                 res.send(result);
