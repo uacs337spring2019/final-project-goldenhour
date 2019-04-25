@@ -22,6 +22,7 @@
 				if (data.length % 3 === 0) {
 					numCols = data.length / 3;
 				}
+				console.log(numCols);
 				let pointer = 0;
 				for (let i = 0; i < numCols; i++) {
 					let col = document.createElement("div");
@@ -32,6 +33,7 @@
 							console.log(obj);
 							let pic = document.createElement("img");
 							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
+							col.appendChild(pic);
 						}
 					}
 					pointer += 1;
