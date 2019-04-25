@@ -17,13 +17,25 @@
 			.then(checkStatus)
 			.then(function(responseText) {
 				let data = JSON.parse(responseText);
-				for (let i = 0; i < data.length; i++) {
-					let obj = data[i];
-					let pic = document.createElement("img");
-					pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
-					document.getElementById("pics").appendChild(pic);
-					
+				let numCols = Math.floor(data.length/3) + 1;
+				if (data.length % 3 === 0) {
+					numCols = data.length / 3;
 				}
+				let pointer = 0;
+				for (let i = 0; i < numCols; i++) {
+					let col = document.createElement("div");
+					col.className = "col"
+					for (let j = 0; j < 3; j++) {
+						if (data[point+j]){
+							let obj = data[pointer+j];
+							let pic = document.createElement("img");
+							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
+						}
+					}
+					pointer += 1;
+					document.getElementById("row").appendChild(col);
+				}
+		
 			})
 			.catch(function(err) {
 				console.log(err);
