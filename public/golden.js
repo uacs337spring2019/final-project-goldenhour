@@ -1,6 +1,7 @@
 "use strict";
 
 (function() {
+	// globals are used for timers, to reset when button is clicked
 	let timer;
 	let currTime;
 	
