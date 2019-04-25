@@ -12,13 +12,11 @@ con.connect(function(err) {
   console.log("Connected!");
 });
 
-var q = "create table pictures ( \
-          pic varchar(50) primary key, \
-          name varchar(30), \
-          place varchar(30));";
+var q = "SELECT * from pictures";
 
 con.query(q, function(err, result) {
   if (err) throw err;
-  console.log("Table Created");
+  console.log(result);
+  //console.log("Table Created");
 })
 
