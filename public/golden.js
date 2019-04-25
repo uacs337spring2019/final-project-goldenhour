@@ -26,7 +26,7 @@
 					let col = document.createElement("div");
 					col.className = "col"
 					for (let j = 0; j < 3; j++) {
-						if (data[point+j]){
+						if (data[pointer+j]){
 							let obj = data[pointer+j];
 							let pic = document.createElement("img");
 							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
