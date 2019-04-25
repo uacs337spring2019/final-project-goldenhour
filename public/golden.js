@@ -7,9 +7,13 @@
 	
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
-		//ifmStart();
+		document.getElementsByTagName("img").onclick = getDesc;
 		populatePhotos();
     };
+	
+	function getDesc() {
+		alert("hello");
+	}
 	
 	function populatePhotos() {
 		let url = "https://the-golden-hour.herokuapp.com?mode=pics";
