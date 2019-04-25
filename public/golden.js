@@ -154,7 +154,12 @@
 			// If the count down is finished, write some text 
 			if (distance < 0) {
 				clearInterval(timer);
-				document.getElementById("timer").innerHTML = "IT'S GOLDEN HOUR!";
+				if (distance > -10) {
+					document.getElementById("timer").innerHTML = "IT'S GOLDEN HOUR!";
+				}
+				else {
+					document.getElementById("timer").innerHTML = "Wait until tomorrow for Golden Hour!";
+				}
 			}
 		}, 1000);
 	}
