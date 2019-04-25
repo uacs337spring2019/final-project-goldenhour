@@ -5,7 +5,6 @@
 	
 	Creates the golden html to display the sunset times and photos people share
 -->
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -109,7 +108,7 @@
 			<div id="userInfo">
 				<p>File Upload Status:</p>
 				<iframe name="formSending"></iframe>
-				<form method="POST" enctype="multipart/form-data" action="https://the-golden-hour.herokuapp.com/upload" target="formSending">
+				<form method="POST" enctype="multipart/form-data" action="http://localhost:3000/upload" target="formSending">
 					<input type="text" name="name" id="name" placeholder="Name" required/>
 					<input type="text" name="place" id="place" placeholder="Location" required/>
 					<br />

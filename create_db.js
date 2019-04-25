@@ -13,6 +13,7 @@ con.connect(function(err) {
 });
 
 var q = "delete from pictures";
+var q2 = "select * from pictures";
 
 con.query(q, function(err, result) {
   if (err) throw err;

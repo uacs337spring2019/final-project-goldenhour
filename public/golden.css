@@ -9,6 +9,7 @@ Formats golden.html. Adds gradients, paddings, margins, etc.
 /*
 import used to get custom fonts from google
 */
+
 @import url('https://fonts.googleapis.com/css?family=Chewy|Kaushan+Script');
 
 html, body {
@@ -146,6 +147,7 @@ select, input {
 
 .row {
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
 	padding: 0 4px;
 }
