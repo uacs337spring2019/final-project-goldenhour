@@ -32,16 +32,16 @@
 				for (let i = 0; i < numCols; i++) {
 					let col = document.createElement("div");
 					col.className = "col"
-					for (let j = 0; j < 3; j++) {
-						if (data[pointer+j]){
-							let obj = data[pointer+j];
+					for (let j = pointer; j < pointer+3; j++) {
+						if (data[j]){
+							let obj = data[j];
 							console.log(obj);
 							let pic = document.createElement("img");
 							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
 							col.appendChild(pic);
 						}
 					}
-					pointer += 1;
+					pointer += 3;
 					document.getElementById("row").appendChild(col);
 				}
 		
