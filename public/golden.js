@@ -7,14 +7,8 @@
 	
     window.onload = function() {
         document.getElementById("loc").onclick = findCoords;
-		console.log(document.getElementsByTagName("img")[0]);
-		document.getElementsByTagName("img").onclick = getDesc;
 		populatePhotos();
     };
-	
-	function getDesc(n, p) {
-		alert("Name: " + n + ", Place: " + p);
-	}
 	
 	function populatePhotos() {
 		let url = "https://the-golden-hour.herokuapp.com?mode=pics";
@@ -37,13 +31,11 @@
 						if (data[j]){
 							let obj = data[j];
 							console.log(obj);
-							//let temp = document.createElement("div");
 							let pic = document.createElement("img");
 							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
 							pic.addEventListener('click', function() {
 								alert("Name: " + obj["name"] + ", Place: " + obj["place"]);
 							});
-							//temp.appendChild(pic);
 							col.appendChild(pic);
 						}
 					}
