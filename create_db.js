@@ -12,7 +12,7 @@ con.connect(function(err) {
   console.log("Connected!");
 });
 
-var q = "SELECT * from pictures";
+var q = "delete from pictures";
 
 con.query(q, function(err, result) {
   if (err) throw err;
