@@ -17,6 +17,7 @@
 			.then(checkStatus)
 			.then(function(responseText) {
 				let data = JSON.parse(responseText);
+				console.log(data);
 				let numCols = Math.floor(data.length/3) + 1;
 				if (data.length % 3 === 0) {
 					numCols = data.length / 3;
@@ -28,6 +29,7 @@
 					for (let j = 0; j < 3; j++) {
 						if (data[pointer+j]){
 							let obj = data[pointer+j];
+							console.log(obj);
 							let pic = document.createElement("img");
 							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
 						}
