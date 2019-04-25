@@ -1,3 +1,11 @@
+
+/* 
+    Name: Mel Nguyen & Matthew Lee
+    Class: CSC337-001 
+	Description: Final project, allows for users to upload, view golden hour pictures. Also
+	allows them to enter a place in the US and it will display the time to golden hour.
+*/
+
 "use strict";
 
 (function() {
@@ -10,29 +18,32 @@
 		populatePhotos();
     };
 	
+	/** Adds all the photos from the server so the client can see them. **/
 	function populatePhotos() {
-		let url = "https://the-golden-hour.herokuapp.com?mode=pics";
-
+		//let url = "https://the-golden-hour.herokuapp.com?mode=pics";
+		let url = "http://localhost:3000?mode=pics";
 		fetch(url)
 			.then(checkStatus)
 			.then(function(responseText) {
 				let data = JSON.parse(responseText);
-				console.log(data);
+				
+				// Calculates the number of columns needed (rows)
 				let numCols = Math.floor(data.length/3) + 1;
 				if (data.length % 3 === 0) {
 					numCols = data.length / 3;
 				}
-				console.log(numCols);
+	
 				let pointer = 0;
 				for (let i = 0; i < numCols; i++) {
 					let col = document.createElement("div");
-					col.className = "col"
+					col.className = "col";
 					for (let j = pointer; j < pointer+3; j++) {
+						// Adds exactly 3 pictures to each col (row)
 						if (data[j]){
 							let obj = data[j];
-							console.log(obj);
 							let pic = document.createElement("img");
-							pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
+							//pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
+							pic.src = "./pics/" + obj["pic"];
 							pic.addEventListener('click', function() {
 								alert("Name: " + obj["name"] + ", Place: " + obj["place"]);
 							});
@@ -50,6 +61,7 @@
 
 	}
 
+	/** API to geocode - get the latitude and longitude based on input of text input. **/
     function findCoords() {
         let cityField = document.getElementById("city");
         let ddstate = document.getElementById("state");
@@ -71,11 +83,13 @@
 		}
     }
 
+	/** API call to get sunset time based on a latitude and longitude. **/
     function getData(lat, lon) {
         let today = new Date();
         let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     
-        let url = "https://api.sunrise-sunset.org/json?lat="+lat+"&lng="+lon+"&date="+date+"&formatted=0";
+		let url = "https://api.sunrise-sunset.org/json?lat="+lat+"&lng="+lon+
+		"&date="+date+"&formatted=0";
 
         fetch(url)
             .then(checkStatus)
@@ -87,29 +101,32 @@
             });
     }
 
+	/** Puts information about current time and when golden hour is in the main information div. **/
     function populateInfo(sunsetDate) {
         let sunsetTimeStr = getTime(sunsetDate);
-        let currTimeStr = getTime(new Date());
 		countdown(sunsetDate);
 		
 		document.getElementById('sun').innerHTML = "";
 		let city = document.getElementById("city").value;
         let state = document.getElementById("state").value;
-		document.getElementById('sun').innerHTML += "<h2>Golden Hour for " + city + ", " + state + "</h2>"
-		document.getElementById('sun').innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>"
+		document.getElementById('sun').innerHTML += "<h2>Golden Hour for " + city + ", " + state 
+		+ "</h2>";
+		document.getElementById('sun').innerHTML += "<p>Sunset Time: " + sunsetTimeStr + "</p>";
 		printCurrTime();
     }
 	
+	/** Prints current time with a timer so it can countdown. **/
 	function printCurrTime() {
 		if (currTime) {
 			clearInterval(currTime);
 		}
 		currTime = setInterval(function() {
 			let currTimeStr = getTime(new Date());
-			document.getElementById('curr').innerHTML = "<p>Current Time: " + currTimeStr + "</p>"
+			document.getElementById('curr').innerHTML = "<p>Current Time: " + currTimeStr + "</p>";
 		}, 1000);
 	}
 
+	/** Returns a string of the current time. **/
     function getTime(date) {
         date.toString();
 
@@ -132,8 +149,9 @@
         let time = hr+':'+min+':'+sec+' '+meridiem;
 
         return time;
-    }
+	}
 	
+	/** Sets the timer for the countdown until Golden Hour has come, **/
 	function countdown(sunset) {
 		if (timer) {
 			clearInterval(timer);
@@ -147,7 +165,8 @@
 			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-			print.innerHTML = "Time till Golden Hour: " + hours + "h " + minutes + "m " + seconds + "s ";
+			print.innerHTML = "Time till Golden Hour: " + hours + "h " + minutes + "m " + 
+			seconds + "s ";
 
 			// If the count down is finished, write some text 
 			if (distance < 0) {
@@ -156,16 +175,17 @@
 					document.getElementById("timer").innerHTML = "IT'S GOLDEN HOUR!";
 				}
 				else {
-					document.getElementById("timer").innerHTML = "Wait until tomorrow for Golden Hour!";
+					document.getElementById("timer").innerHTML = 
+					"Wait until tomorrow for Golden Hour!";
 				}
 			}
 		}, 1000);
 	}
 	
+	/** Changes the background color of our header depending on what the current time is. **/
 	function changeBackground(time) {
 		let currHour = time.getHours();
 		let main = document.getElementById('main');
-		//console.log(currHour);
 		if (currHour >= 6 && currHour < 11) {
 			main.style.backgroundImage = "linear-gradient(#6dd5fa, #9aecdb, white)";
 		}

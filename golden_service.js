@@ -1,3 +1,4 @@
+/*   This is the web service created for the final project. */
 "use strict";
 
 const express = require('express');
@@ -24,22 +25,20 @@ var db_config = {
 var connection;
 
 function handleDisconnect() {
-  connection = mysql.createConnection(db_config); // Recreate the connection, since
-                                                  // the old one cannot be reused.
-
-  connection.connect(function(err) {              // The server is either down
-    if(err) {                                     // or restarting (takes a while sometimes).
-      //console.log('error when connecting to db:', err);
-      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-    }                                     // to avoid a hot loop, and to allow our node script to
-  });                                     // process asynchronous requests in the meantime.
-                                          // If you're also serving http, display a 503 error.
+  connection = mysql.createConnection(db_config); // This is our connection to SQL server
+                                                 
+  connection.connect(function(err) {              
+    if(err) {                                     
+      setTimeout(handleDisconnect, 2000); // Wait a little before trying to reconnect
+    }                                   
+  });                                     
+                                        
   connection.on('error', function(err) {
     //console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-      handleDisconnect();                         // lost due to either server restart, or a
-    } else {                                      // connnection idle timeout (the wait_timeout
-                                                  // server variable configures this)
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+                                                
     }
   });
 }
@@ -56,6 +55,7 @@ const multerConf = {
         },
         filename: function(req, file, next) {
             const ext = file.mimetype.split('/')[1];
+            // Give unique-ish name to photos
             next(null,file.fieldname + '-' + crypto.randomBytes(16).toString("hex") + '.' + ext);
         } 
     }),
@@ -76,9 +76,7 @@ app.post('/upload', multer(multerConf).single('photo'), function(req, res) {
     if (req.file) {
         req.body.photo = req.file.filename;
         console.log(req.body);
-        // req.body.name
-        // req.body.place
-        // req.body.photo
+        
         let name = req.body.name;
         let place = req.body.place;
         let photo = req.body.photo;

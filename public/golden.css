@@ -1,3 +1,5 @@
+/* CSS file to style golden.html */
+
 @import url('https://fonts.googleapis.com/css?family=Chewy|Kaushan+Script');
 
 html, body {
@@ -133,6 +135,7 @@ select, input {
 
 .row {
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
 	padding: 0 4px;
 }
