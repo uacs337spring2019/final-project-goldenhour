@@ -92,11 +92,6 @@ app.get('/', function (req, res) {
     }
 });
 
-app.get("/photo-aad35f68560828ea9913298fe8b7c334", (req, res) => {
-    console.log(__dirname, "./pics/photo-aad35f68560828ea9913298fe8b7c334");
-    res.sendFile(path.join(__dirname, "./pics/photo-aad35f68560828ea9913298fe8b7c334"));
-});
-
 const PORT = process.env.PORT || 3000;
 
 httpServer.listen(PORT, () => {

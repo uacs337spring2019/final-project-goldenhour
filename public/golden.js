@@ -20,9 +20,9 @@
 				for (let i = 0; i < data.length; i++) {
 					let obj = data[i];
 					let pic = document.createElement("img");
-					pic.src = obj["pic"];
-					console.log(pic.src);
+					pic.src = "https://the-golden-hour.herokuapp.com/pics/" + obj["pic"];
 					document.getElementById("pics").appendChild(pic);
+					
 				}
 			})
 			.catch(function(err) {
